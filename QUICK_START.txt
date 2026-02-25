@@ -1,0 +1,120 @@
+# Quick Reference - PlacementGuruAI API
+
+## Status: ✅ ALL SYSTEMS OPERATIONAL
+
+### Server
+- **URL:** http://localhost:8080
+- **Port:** 8080
+- **Status:** Running
+- **Database:** MongoDB Atlas (Connected)
+
+---
+
+## How to Use
+
+### 1️⃣ Sign Up
+```bash
+curl -X POST http://localhost:8080/api/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Your Name",
+    "email": "your@email.com",
+    "password": "Password@123",
+    "skillLevel": "BEGINNER"
+  }'
+```
+
+### 2️⃣ Login (Get Token)
+```bash
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "your@email.com",
+    "password": "Password@123"
+  }'
+
+# Copy the token from response
+```
+
+### 3️⃣ Use APIs with Token
+```bash
+curl -X GET http://localhost:8080/api/chatbot/history \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
+## Public Endpoints (No login needed)
+- `GET /api/auth/test` - Health check
+- `GET /api/coding/problems` - View all problems
+- `GET /api/coding/problems/difficulty/{EASY|MEDIUM|HARD}` - Filter by difficulty
+- `POST /api/auth/signup` - Register new user
+- `POST /api/auth/login` - Login user
+
+---
+
+## Protected Endpoints (Need JWT Token)
+- `POST /api/chatbot/message` - Send message to chatbot
+- `GET /api/chatbot/history` - Get chat history
+- `POST /api/interview/start` - Start interview
+- `GET /api/interview/history` - Get past interviews
+- `GET /api/resume/history` - Get resume analysis history
+- `GET /api/roadmap/today` - Get today's plan
+- `GET /api/roadmap/generate` - Generate new plan
+- `GET /api/roadmap/history` - Get past plans
+
+---
+
+## Admin Endpoints (Need ADMIN token)
+- `POST /api/admin/problems` - Add coding problem
+- `PUT /api/admin/problems/{id}` - Update problem
+- `DELETE /api/admin/problems/{id}` - Delete problem
+- `GET /api/admin/problems` - Get all problems (admin view)
+- `GET /api/admin/students/progress` - Get all students' progress
+- `GET /api/admin/students/{id}/progress` - Get student progress
+
+---
+
+## What Was Fixed
+
+✅ **MongoDB Connection** - Updated credentials and enabled `authSource=admin`
+✅ **Security Configuration** - Made API properly public/protected as needed
+✅ **JWT Authentication** - All protected endpoints now properly validate tokens
+✅ **CORS** - Frontend can now connect from http://localhost:3000 and :3001
+
+---
+
+## Test Results
+```
+Total Tests: 11
+Passed: 11
+Failed: 0
+Pass Rate: 100% ✅
+```
+
+---
+
+## Configuration Files
+- Server config: `application.properties`
+- Security config: `SecurityConfig.java`
+- Database: MongoDB Atlas
+
+---
+
+## Restart Server
+```bash
+cd "c:\Users\SHYAM\Downloads\New folder\PlacementGuruAI"
+java -jar target/placement-guru-ai-1.0.0.jar
+```
+
+---
+
+## Run Tests
+```bash
+cd "c:\Users\SHYAM\Downloads\New folder\PlacementGuruAI"
+powershell -ExecutionPolicy Bypass -File test-auth.ps1
+```
+
+---
+
+**Ready for Frontend Integration! 🎉**
